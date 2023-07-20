@@ -5,11 +5,18 @@ import "./Row.css";
 
 const Row = ({ title, id, fetchUrl }) => {
   const [movies, setMovies] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelection] = useState({});
 
   const fetchMovieData = useCallback(async () => {
     const request = await axios.get(fetchUrl);
     setMovies(request.data.results);
   }, [fetchUrl]);
+
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelection(movie);
+  };
 
   useEffect(() => {
     fetchMovieData();
@@ -36,6 +43,7 @@ const Row = ({ title, id, fetchUrl }) => {
               className="row__poster"
               src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
               alt={movie.name}
+              onClick={() => handleClick(movie)}
             />
           ))}
         </div>
@@ -50,6 +58,7 @@ const Row = ({ title, id, fetchUrl }) => {
           </span>
         </div>
       </div>
+      {modalOpen && <MovieModal {...movieSelected} setModalOpen={setModalOpen} />}
     </div>
   );
 };
