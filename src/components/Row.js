@@ -1,6 +1,7 @@
 import axios from "../api/axios";
 import React, { useCallback, useState, useEffect } from "react";
 
+import MovieModal from "./MovieModal/index";
 import "./Row.css";
 
 const Row = ({ title, id, fetchUrl }) => {
