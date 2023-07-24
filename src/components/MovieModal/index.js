@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./MovieModal.css";
 
 const MovieModal = ({
@@ -11,10 +11,12 @@ const MovieModal = ({
   vote_average,
   setModalOpen,
 }) => {
+  const ref = useRef();
+
   return (
     <div className="presentation" role="presentation">
       <div className="wrapper-modal">
-        <div className="modal">
+        <div className="modal" ref={ref}>
           <span onClick={() => setModalOpen(false)} className="modal-close">
             X
           </span>
@@ -27,12 +29,12 @@ const MovieModal = ({
 
           <div className="modal__content">
             <p className="modal__details">
-              <span className="modal__user_prec"> 100% for you</span>(" ")
+              <span className="modal__user_perc">100% for you</span>{" "}
               {release_date ? release_date : first_air_date}
             </p>
 
-            <h2 className="modal__title">{title ? title : name}</h2>
-            <p className="modal__overview">평점 : {vote_average}</p>
+            <h2 className="modal__title"> {title ? title : name}</h2>
+            <p className="modal__overview">평점: {vote_average}</p>
             <p className="modal__overview">{overview}</p>
           </div>
         </div>
